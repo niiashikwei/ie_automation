@@ -33,4 +33,4 @@ cmd1="curl https://www.dropbox.com/s/yer2hc25lfvtjne/selenium-server-standalone-
 cmd2="curl https://www.dropbox.com/s/bqiaajofm5244oz/IEDriverServer_x64_2.39.0.zip"
 
 #ssh into vm and download server and driver
-sshpass -p vagrant ssh vagrant@$guest_ip -p 2222 $cmd1
+sshpass -p password ssh ieuser@$guest_ip -p 2222 $cmd1

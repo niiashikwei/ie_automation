@@ -28,6 +28,7 @@ else
     
     echo "adding 'IE10 - Win7' box to vagrant"
     vagrant box add 'IE10 - Win7' win7_ie10.box
+    vagrant box list
   else
     echo "vagrant box '$vagrant_box' already exists...skipping packaging and addition"
   fi
@@ -35,4 +36,4 @@ fi
 
 echo "cleaning up"
 rm *.ova
-VBoxManage unregistervm 'IE10 - Win7'
+VBoxManage unregistervm 'IE10 - Win7' --delete

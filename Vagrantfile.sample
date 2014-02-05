@@ -13,8 +13,8 @@ Vagrant.configure("2") do |config|
   end
   config.ssh.timeout = 10
   config.ssh.max_tries = 2
-  config.ssh.username = 'vagrant'
-  #config.ssh.password = 'vagrant'
+  config.ssh.username = 'ieuser'
+  #config.ssh.password = 'password'
   config.ssh.port = 2222
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
