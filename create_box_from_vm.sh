@@ -35,3 +35,4 @@ fi
 
 echo "cleaning up"
 rm *.ova
+VBoxManage unregistervm 'IE10 - Win7'

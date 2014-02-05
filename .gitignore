@@ -1,0 +1,7 @@
+
+#git ignore following generated assets
+vm/
+.box
+.ova
+.sfx
+.rar
