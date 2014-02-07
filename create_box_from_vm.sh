@@ -19,6 +19,27 @@ else
     vagrant box add 'IE9 - Win7' win7_ie10.box
     vagrant box list
     VBoxManage unregistervm 'IE9 - Win7' --delete
+
+    ##start up vagrant box
+    echo "start up vagrant box"
+
+    #create vm folder
+    echo "create vm folder"
+    if [[ -d vm ]] ; then
+        rm -rf vm/
+    fi
+
+    #setup vagrant/vagrant file
+    echo "setup vagrant/vagrant file"
+    mkdir vm
+    cd vm
+    vagrant init
+    rm Vagrantfile
+    cp ../Vagrantfile.sample Vagrantfile
+
+    #start up vm
+    echo "starting up vm"
+    vagrant up
   else
     echo "vagrant box '$vagrant_box' already exists...skipping packaging and addition"
   fi

@@ -2,23 +2,12 @@
 
 set -ex
 
-#create vm folder
-echo "create vm folder"
-if [[ -d vm ]] ; then
-    rm -rf vm/
-fi
-
-#setup vagrant/vagrant file
-echo "setup vagrant/vagrant file"
-mkdir vm
-cd vm
-vagrant init
-rm Vagrantfile
-cp ../Vagrantfile.sample Vagrantfile
-
-#start up vm
-echo "starting up vm"
-vagrant up
+##########
+echo "Need to install ssh server on win vm listening at port 2222,"
+echo "\nadd the local windows account,"
+echo "\nand turn off windows firewall"
+echo "before doing next steps"
+##########
 
 #get host ip
 host_ip=`ifconfig en0 inet | grep inet | awk '{print $2}'`
