@@ -11,11 +11,12 @@ Vagrant.configure("2") do |config|
   config.vm.provider :virtualbox do |vb|
       vb.name = "IE10 - Win7"
   end
-  config.ssh.timeout = 10
-  config.ssh.max_tries = 2
-  config.ssh.username = 'ieuser'
-  #config.ssh.password = 'password'
-  config.ssh.port = 2222
+
+  #config.ssh.timeout = 10
+  #config.ssh.max_tries = 2
+  #config.ssh.username = 'ieuser'
+  #config.ssh.port = 2222
+
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
   # config.vm.box_url = "http://domain.com/path/to/above.box"

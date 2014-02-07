@@ -2,6 +2,7 @@
 
 set -ex
 
+#make sure virtualbox is installed
 vbox_version=`VBoxManage -v`
 if [[ -z $vbox_version ]] ; then
   echo "Virtual box not installed or not in path! Quitting"

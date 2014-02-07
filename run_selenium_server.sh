@@ -14,7 +14,3 @@ cmd1="java -jar selenium-server-standalone-2.39.0.jar"
 #run selenium server
 echo "starting selenium server"
 sshpass -p password ssh ieuser@$guest_ip -p 2222 "$cmd0 && $cmd1"
-
-#echo "running cukes"
-#current_dir=`pwd`
-#amplify && cd playlist-builder && ./cuke.sh && cd $current_dir

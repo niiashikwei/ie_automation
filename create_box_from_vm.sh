@@ -2,18 +2,10 @@
 
 #set -ex
 
-fileExists () {
-  file_name=${1}
-  if [ -s $file_name ]
-  then
-    echo "$file_name exists"
-  else
-    echo "$file_name doesn't exist"
-  fi
-}
 
 vagrant_version=`vagrant -v | awk '{ print $NF }'`
 echo "vagrant version: $vagrant_version"
+
 if [[ -z $vagrant_version ]] ; then
   echo "vagrant not installed or not in path! quitting.."
   exit
@@ -31,7 +23,6 @@ else
     echo "vagrant box '$vagrant_box' already exists...skipping packaging and addition"
   fi
 fi
-
 
 echo "cleaning up"
 rm *.ova
