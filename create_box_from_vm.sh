@@ -13,10 +13,10 @@ else
   vagrant_box=`vagrant box list | grep 'IE9 - Win7'`
   if [[ -z $vagrant_box ]] ; then
     echo "creating box..."
-    vagrant package --base 'IE9 - Win7' --output win7_ie10.box
+    vagrant package --base 'IE9 - Win7' --output win7_ie9.box
     
     echo "adding 'IE9 - Win7' box to vagrant"
-    vagrant box add 'IE9 - Win7' win7_ie10.box
+    vagrant box add 'IE9 - Win7' win7_ie9.box
     vagrant box list
     VBoxManage unregistervm 'IE9 - Win7' --delete
 

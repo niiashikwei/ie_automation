@@ -37,9 +37,9 @@ cmd5="echo $host_ip          localtest.me >>  C:\Windows\System32\drivers\etc\ho
 cmd6="cd C:\Users\IEUser\\\"My Documents\""
 cmd7="touch default_file some_pdf.pdf some_ppt.ppt text_file.txt another_txt_file.txt"
 cmd8="cd C:\Users\IEUser\workdir"
-seed_cmds = "$cmd6 && $cmd7 && $cmd8"
+seed_cmds="$cmd6 && $cmd7 && $cmd8"
 
-cmds="$cmd0 && $cmd1 && $cmd2 && $cmd3 && $cmd4 && $cmd5 && seed_cmds"
+cmds="$cmd0 && $cmd1 && $cmd2 && $cmd3 && $cmd4 && $cmd5 && $seed_cmds"
 
 #ssh into vm and download server and driver
 echo downloading selenium server and driver
