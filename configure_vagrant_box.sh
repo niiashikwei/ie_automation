@@ -4,26 +4,28 @@ set -ex
 
 #create vm folder
 echo "create vm folder"
-rm -rf vm/
-mkdir vm
-cd vm
+if [[ -d vm ]] ; then
+    rm -rf vm/
+fi
 
 #setup vagrant/vagrant file
 echo "setup vagrant/vagrant file"
-#vagrant init
-#rm Vagrantfile
-#cp ../Vagrantfile.sample Vagrantfile
+mkdir vm
+cd vm
+vagrant init
+rm Vagrantfile
+cp ../Vagrantfile.sample Vagrantfile
 
 #start up vm
 echo "starting up vm"
-#vagrant up
+vagrant up
 
 #get host ip
 host_ip=`ifconfig en0 inet | grep inet | awk '{print $2}'`
 echo "host ip is $host_ip"
 
 #get guest ip
-guest_ip=`VBoxManage guestproperty get "IE10 - Win7" '/VirtualBox/GuestInfo/Net/0/V4/IP' | awk '{print $NF}'`
+guest_ip=`VBoxManage guestproperty get "IE9 - Win7" '/VirtualBox/GuestInfo/Net/0/V4/IP' | awk '{print $NF}'`
 echo "guest ip is $guest_ip"
 
 #move to workdir
@@ -42,16 +44,15 @@ cmd4="rm drivers\\$driver_version.zip"
 #edit host file
 cmd5="echo $host_ip          localtest.me >>  C:\Windows\System32\drivers\etc\hosts"
 
-cmds="$cmd0 && $cmd1 && $cmd2 && $cmd3 && $cmd4 && $cmd5"
+#seed commands
+cmd6="cd C:\Users\IEUser\\\"My Documents\""
+cmd7="touch default_file some_pdf.pdf some_ppt.ppt text_file.txt another_txt_file.txt"
+cmd8="cd C:\Users\IEUser\workdir"
+seed_cmds = "$cmd6 && $cmd7 && $cmd8"
+
+cmds="$cmd0 && $cmd1 && $cmd2 && $cmd3 && $cmd4 && $cmd5 && seed_cmds"
 
 #ssh into vm and download server and driver
 echo downloading selenium server and driver
-sshpass -p password ssh ieuser@$guest_ip -p 2222 $cmds
+sshpass -p Passw0rd! ssh ieuser@$guest_ip -p 2222 $cmds
 
-#run selenium server
-#echo "starting selenium server"
-#nohup sshpass -p password ssh ieuser@$guest_ip -p 2222 "$cmd0 $cmd6"
-
-#echo "running cukes"
-#current_dir=`pwd`
-#amplify && cd playlist-builder && ./cuke.sh && cd $current_dir

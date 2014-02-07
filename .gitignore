@@ -6,3 +6,5 @@ vm/
 *.sfx
 *.rar
 *.log
+*.idea
+*.iml
