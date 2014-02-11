@@ -50,3 +50,5 @@ cmd8="touch default_file some_pdf.pdf some_ppt.ppt text_file.txt another_txt_fil
 cmd9="cd C:\Users\IEUser\workdir"
 seed_cmds="$cmd7 && $cmd8 && $cmd9"
 send_command $seed_cmds
+
+VBoxManage snapshot "IE9 - Win7" -take "selenium running"
