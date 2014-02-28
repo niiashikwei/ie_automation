@@ -23,16 +23,9 @@ else
     ##start up vagrant box
     echo "start up vagrant box"
 
-    #create vm folder
-    echo "create vm folder"
-    if [[ -d vm ]] ; then
-        rm -rf vm/
-    fi
-
     #setup vagrant/vagrant file
     echo "setup vagrant/vagrant file"
-    mkdir vm
-    cd vm
+    cd vms
     vagrant init
     rm Vagrantfile
     cp ../Vagrantfile.sample Vagrantfile
@@ -45,5 +38,3 @@ else
   fi
 fi
 
-echo "cleaning up"
-rm *.ova
