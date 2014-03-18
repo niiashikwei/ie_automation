@@ -1,6 +1,7 @@
 
 #git ignore following generated assets
 vm/
+win7/
 *.box
 *.ova
 *.sfx
