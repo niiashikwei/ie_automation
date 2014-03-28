@@ -1,5 +1,6 @@
-require "ie/version"
+require 'ie/version'
+require 'ie/ie'
 
-module Ie
+module IE
   # Your code goes here...
 end

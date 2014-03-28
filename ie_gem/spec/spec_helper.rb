@@ -1,1 +1,1 @@
-require 'ie'
+require 'ie/ie'
