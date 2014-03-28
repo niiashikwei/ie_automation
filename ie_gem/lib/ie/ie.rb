@@ -1,5 +1,6 @@
 
 class IE
+
   def self.hi
     puts "Hello my ie friends!"
   end
@@ -30,19 +31,19 @@ class IE
     system "rm *.rar *.sfx"
   end
 
-  def self.setup_for_ie()
-    if ENV['IE9_VM_IP'].present?
-      selenium_server_host_ip = ENV['IE9_VM_IP']
-      selenium_server_url = "http://#{selenium_server_host_ip}:4444/wd/hub"
-
-      Capybara.register_driver :selenium do |app|
-        Capybara::Selenium::Driver.new(app,
-                                       :browser => :remote,
-                                       :url => selenium_server_url,
-                                       :desired_capabilities => :internet_explorer
-                                      )
-      end
-    end
+  def self.setup_for_ie
+    #if ENV['IE9_VM_IP'].present?
+    #  selenium_server_host_ip = ENV['IE9_VM_IP']
+    #  selenium_server_url = "http://#{selenium_server_host_ip}:4444/wd/hub"
+    #
+    #  Capybara.register_driver :selenium do |app|
+    #    Capybara::Selenium::Driver.new(app,
+    #                                   :browser => :remote,
+    #                                   :url => selenium_server_url,
+    #                                   :desired_capabilities => :internet_explorer
+    #                                  )
+    #  end
+    #end
   end
 
 end
