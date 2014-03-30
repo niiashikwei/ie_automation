@@ -7,7 +7,7 @@ describe IE do
     end
 
     it "should assign the environment variable for ie9 if it exists" do
-      IE.get_ie9_vm_ip.should == "1.2.3.4"
+      ENV["IE9_VM_IP"].should == "1.2.3.4"
     end
   end
 

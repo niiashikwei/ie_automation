@@ -22,9 +22,6 @@ module IE
       m.perform
     end
 
-    def self.get_ie9_vm_ip
-      ENV["IE9_VM_IP"]
-    end
 
     def self.unzip_image
       puts 'unziping image...'
@@ -49,9 +46,9 @@ module IE
 
 
     def self.setup_for_ie9
-      if get_ie9_vm_ip.present?
-        selenium_server_host_ip = ENV['IE9_VM_IP']
-        selenium_server_url = "http://#{selenium_server_host_ip}:4444/wd/hub"
+      ie_vm_ip = ENV['IE9_VM_IP']
+      if ie_vm_ip.present?
+        selenium_server_url = "http://#{ie_vm_ip}:4444/wd/hub"
 
         Capybara.register_driver :selenium do |app|
           Capybara::Selenium::Driver.new(app,
@@ -62,5 +59,9 @@ module IE
         end
       end
     end
+
+  def override_localhost_on_vm
+
+  end
 
 end
