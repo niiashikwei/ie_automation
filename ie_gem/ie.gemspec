@@ -21,5 +21,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake', '~> 0.9.6'
   spec.add_development_dependency 'rspec', '~> 0.9.4'
   spec.add_development_dependency 'curb', '~> 0.8.5'
-  spec.add_development_dependency 'capybara', '2.1.0'
+  spec.add_development_dependency 'capybara', '~> 2.1.0'
 end
