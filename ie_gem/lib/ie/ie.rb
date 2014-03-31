@@ -10,7 +10,7 @@ module IE
 
       requests.each do |url|
         responses[url] = ""
-        c = Curl::Easy.new(url) do|curl|
+        c = Curl::Easy.new(url) do |curl|
           curl.follow_location = true
           curl.on_body{|data| responses[url] << data; data.size }
           curl.on_success {|easy| puts "download finished successfully" }
@@ -61,7 +61,17 @@ module IE
     end
 
   def override_localhost_on_vm
-
+    ##get host ip
+    #host_ip=`ifconfig en0 inet | grep inet | awk '{print $2}'`
+    #echo "host ip is $host_ip"
+    #
+    ##get guest ip
+    #guest_ip=`VBoxManage guestproperty get "IE9 - Win7" '/VirtualBox/GuestInfo/Net/0/V4/IP' | awk '{
+    #echo "guest ip is $guest_ip"
+    #
+    #
+    ##create workdir
+    #sshpass -p Passw0rd! ssh ieuser@$guest_ip -p 2222 "mkdir workdir || echo \"directory already exists"
   end
 
 end
