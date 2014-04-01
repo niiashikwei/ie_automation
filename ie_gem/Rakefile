@@ -1,7 +1,20 @@
-require "bundler/gem_tasks"
-require "rspec/core/rake_task"
+require 'bundler/gem_tasks'
+require 'rspec/core/rake_task'
+require 'ie'
 
 RSpec::Core::RakeTask.new
 
 task :default => :spec
 task :test => :spec
+
+namespace :ie9 do
+  desc "get ie9 vm ip"
+  task :ip do
+    (IE.get_ie9_vm_ip.size > 0) ? (puts "found VM with name #{IE.get_ie9_vm_name}") : (puts "couldn't find VM with name #{IE.get_ie9_vm_name}")
+  end
+
+  desc "run any cucumber tests against IE in VM"
+  task :cucumber do
+
+  end
+end

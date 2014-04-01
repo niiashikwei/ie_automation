@@ -22,4 +22,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec', '~> 2.14'
   spec.add_development_dependency 'curb', '~> 0.8'
   spec.add_development_dependency 'capybara', '~> 2.1'
+  spec.add_development_dependency 'pry'
 end

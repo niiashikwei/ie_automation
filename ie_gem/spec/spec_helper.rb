@@ -1,2 +1,2 @@
-require 'ie/ie'
+require 'ie'
 require 'curl'
