@@ -2,15 +2,20 @@
 module IE
   IE9_VM_NAME = "IE9 - Win7"
   DOWNLOAD_DIR = 'tmp'
-  DEPENDENCIES = ['vagrant', 'VBoxManage', 'awk']
+  DEPENDENCIES = ['vagrant', 'VBoxManage', 'awk', 'curl', 'unrar']
+  CMD_SUCCESSFUL = 0
+  CMD_FAILED= 1
 
   def self.get_ie9_vm_name
     IE9_VM_NAME
   end
 
   def self.get_ie9_vm_ip
-    ie9_vm_ip = `VBoxManage guestproperty get "#{IE9_VM_NAME}" '/VirtualBox/GuestInfo/Net/0/V4/IP' | awk '{print $NF}'`[0..-2]
-    ie9_vm_ip
+    `VBoxManage guestproperty get "#{IE9_VM_NAME}" '/VirtualBox/GuestInfo/Net/0/V4/IP' | awk '{print $NF}'`[0..-2]
+  end
+
+  def self.get_host_ip
+    `ifconfig en0 inet | grep inet | awk '{print $2}'`
   end
 
   def self.setup_ie9_env
@@ -36,37 +41,34 @@ module IE
   end
 
   def self.download_ie9_vm
-    Dir.mkdir DOWNLOAD_DIR unless Dir.entries('.').include?(DOWNLOAD_DIR)
+    Dir.mkdir(DOWNLOAD_DIR) unless Dir.entries('.').include?(DOWNLOAD_DIR)
+    mac_os? ? download_ie_vm() : puts("Sorry ie gem currently only supports mac os")
+  end
 
-    puts "downloading #{IE9_VM_NAME} image..."
-    base_url = "http://www.modern.ie/vmdownload?platform=mac&virtPlatform=virtualbox&browserOS=IE9-Win7&filename=VirtualBox/IE9_Win7/Mac/"
-    parts = ["IE9.Win7.For.MacVirtualBox.part1.sfx", "IE9.Win7.For.MacVirtualBox.part2.rar", "IE9.Win7.For.MacVirtualBox.part3.rar", "IE9.Win7.For.MacVirtualBox.part4.rar"]
-
-    m = Curl::Multi.new
-
-    parts.each do |part_name|
-      url = base_url + part_name
-      c = Curl::Easy.new(url) do |curl|
-        curl.follow_location = true
-        curl.on_body{|data| File.open( "#{DOWNLOAD_DIR}/part_name", 'w') { |f| f.write(data) } }
-        curl.on_success {|easy| puts 'download finished successfully' }
-        curl.on_failure {|easy| puts 'download failed' }
-      end
-      m.add(c)
-    end
-
-    m.perform
+  def self.download_ie_vm(ie_version=9)
+    Dir.chdir(DOWNLOAD_DIR)
+    puts "getting ready to download and setup IE#{ie_version} vm...this takes ~ 14 mins "
+    `curl -O -L "http://www.modern.ie/vmdownload?platform=mac&virtPlatform=virtualbox&browserOS=IE9-Win7&parts=4&filename=VMBuild_20131127/VirtualBox/IE9_Win7/Mac/IE9.Win7.For.MacVirtualBox.part{1.sfx,2.rar,3.rar,4.rar}"`
   end
 
   def self.unzip_appliance
-    system "chmod +x #{DOWNLOAD_DIR}/*.sfx"
-    system './*.sfx'
+    puts "unziping appliance..."
+    system "chmod +x *.sfx"
+    system "unrar e IE9.Win7.For.MacVirtualBox.part1.sfx"
   end
 
   def self.import_appliance
-    appliance_path = "#{DOWNLOAD_DIR}/#{IE9_VM_NAME}.ova"
-    puts "importing '#{appliance_path}' as appliance..."
-    system "VboxManage import '#{appliance_path}'"
+    appliance_path = "#{IE9_VM_NAME}.ova"
+    if ie_vm_exists?
+      puts "vm with name #{IE9_VM_NAME} already exists!"
+    else
+      puts "importing '#{appliance_path}' as appliance..."
+      system "VboxManage import '#{appliance_path}'"
+    end
+  end
+
+  def self.ie_vm_exists?
+    `VBoxManage list vms | grep '#{IE9_VM_NAME}' | awk '{ print $1 $2 $3}'` == "IE9-Win7"
   end
 
   def self.dependencies_met?
@@ -81,6 +83,10 @@ module IE
       end
     end
     puts "Please install the following missing dependencies: \n #{missing_dependencies}" if (missing_dependencies.size > 0)
+  end
+
+  def self.mac_os?
+    (/darwin/ =~ RUBY_PLATFORM) != nil
   end
 
 end

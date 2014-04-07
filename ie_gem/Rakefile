@@ -9,12 +9,21 @@ task :test => :spec
 
 namespace :ie9 do
   desc "get ie9 vm ip"
-  task :ip do
+  task :guest_ip do
     (IE.get_ie9_vm_ip.size > 0) ? (puts "found VM with name #{IE.get_ie9_vm_name}") : (puts "couldn't find VM with name #{IE.get_ie9_vm_name}")
   end
 
-  desc "run any cucumber tests against IE in VM"
-  task :cucumber do
+  desc "download IE9 and set it up"
+  task :setup_vm do
+    IE.download_ie9_vm
+    IE.unzip_appliance
+    IE.import_appliance
+  end
 
+  desc "run all cucumber tests against ie vm"
+  task :cucumber do
+    IE.setup_ie9_env
+    cucumber
+    IE.tear_down_ie9_env
   end
 end
